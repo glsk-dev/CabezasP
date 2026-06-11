@@ -1,0 +1,341 @@
+<!doctypehtml>
+  <html lang=es>
+    <meta charset=UTF-8>
+    <title>CabezasP - /p h wth (IIE Head Editor) (Placeholder E v2.1)</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #1f1713;
+        color: #e7d6c8;
+        margin: 10px;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-weight: normal;
+      }
+
+      a {
+        color: #7b502a;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #3a2a22;
+      }
+
+      input,
+      select,
+      textarea {
+        background: #2a1e18;
+        color: #e7d6c8;
+        border: 1px solid #3b2a22;
+        padding: 6px;
+        border-radius: 4px;
+        font-family: Arial, sans-serif;
+      }
+
+      button {
+        background: #5a3b2a;
+        color: #fff;
+        border: 1px solid #3b2a22;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #6b4632;
+      }
+
+      .preview {
+        border: 1px solid #3b2a22;
+        padding: 6px;
+        margin-top: 5px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        overflow-x: auto;
+        background: #241a15;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 10px;
+        background-color: #2a1e18;
+        color: #c9b2a3;
+        font-size: 14px;
+        border-top: 1px solid #3b2a22;
+      }
+
+      div,
+      textarea,
+      input,
+      select {
+        border-radius: 3px;
+      }
+    </style>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href=""> Placeholder 2.1 </a>
+      <h1>CabezasP IIE Head Editor (Placeholder E v2.1)</h1>
+    </div>
+    <hr>
+    <h3>Generador IIE y herramientas:</h3>
+    <div><label>Rango:</label> <select id=rank>
+        <option value=Usu>Usu
+        <option value=Jup>Jup
+        <option value=Nep>Nep
+        <option value=Mer>Mer
+        <option value=Sat>Sat
+        <option value=YT>YT
+        <option value=Str>Str
+        <option value=Bui>Bui
+        <option value=Ayu>Ayu
+        <option value=Mod>Mod
+        <option value=Adm>Adm
+        <option value=Dev>Dev
+        <option value=Beta>Beta
+      </select></div><br>
+    <div><label>Nick:</label> <input id=nick placeholder="Nick del jugador/a" maxlength="16"></div><br>
+    <div>
+      <label>
+        <input type="checkbox" id="toggleCmd" checked>
+        Mostrar comandos (/p h CabezasPandora - /p h wth)
+      </label>
+    </div><br>
+    <div><button onclick=openNameMC()>Abrir NameMC</button> <button onclick=openMinecraftUUID()>Abrir MinecraftUUID</button> <button onclick=openMineSkin()>Abrir MineSkin</button> </div>
+    <hr>
+    <h3>Vista previa:</h3>
+    <div id=preview class=preview>—</div>
+    <hr>
+    <h3>Copiar y pegar:</h3>
+    <pre id=result></pre>
+    <hr>
+    <h3>Convertidor B64</h3>
+    <div><button onclick='setMode("encode")' id=btnEncode>Data - B64</button> <button onclick='setMode("decode")' id=btnDecode>B64 - Data</button></div><br><textarea id=baseInput placeholder="Escribe aquí..." style=width:100%;height:80px></textarea>
+    <h4>Resultado:</h4>
+    <div id=baseResult class=preview>—</div>
+    <hr>
+    <h3>Formateador de /give</h3><textarea id=giveInput placeholder="Pega aquí el comando /give..." style=width:100%;height:80px></textarea>
+    <h4>Resultado JSON:</h4>
+    <div id=giveResult class=preview>—</div>
+    <hr>
+    <h3>Espacio libre para colocar NBT's</h3><textarea id=freeArea placeholder="Pega aquí los NBT's..." style=width:100%;height:100px></textarea>
+    <hr>
+    <h3>Plantillas NBT</h3>
+    <details>
+      <summary><strong>NBT Principal</strong></summary>
+      <div class=preview>Esta es la plantilla principal del NBT, leer <strong>Datos importantes</strong> antes de continuar:<br><br>{SkullOwner:{Id:"(Aquí va la UUID del jugador PREMIUM)",Properties:{textures:[{Value:"(Aquí va la data en Base64)"}]},Name:"(Nick, opcional, borrar este campo si es necesario)"}}</div>
+    </details><br>
+    <details>
+      <summary><strong>NBT Base64</strong></summary>
+      <div class=preview>Este es el texto Base64 decodificado del NBT, leer <strong>Datos importantes</strong> antes de continuar:<br><br><strong>¡ATENCIÓN! SIEMPRE USAR EL PROTOCOLO HTTP, NO HTTPS ⚠️.</strong><br><br>{textures:{SKIN:{url:"(URL de la textura)"}}}<br><br>Si no funciona, usar este:<br><br>{"textures":{"SKIN":{"url":"(URL de la textura)"}}}<br><br>Después codificar con el convertidor B64 de arriba.</div>
+    </details><br>
+    <details>
+      <summary><strong>Firmas GHS & ejemplos</strong></summary>
+      <div class=preview>Las firmas <strong>GHS (Genuine Head Signature)</strong> son unas firmas/certificados creados por <strong>Gelsik</strong> diseñados para mostrar la autenticidad de la(s) cabeza(s) creadas por <strong>CabezasP</strong> o en otro sitio.<br><br><strong>¡ATENCIÓN! ¡RECUERDA QUE ES OPCIONAL EL USO DE GHS EN CABEZASP ⚠️!</strong><br><br>GHS 1.6:<br><br>,GHS:[{Value:"KE5pY2tzIHJlbGV2YW50ZXMgYSBsYSBjYWJlemEpLCBHSFMgdjEuNg=="}]}},<br><br>El uso es <strong>sencillo</strong>, simplemente coloca el NBT después del <strong>"textures"</strong>.<br><br>Ejemplo y uso de <strong>GHS</strong> en un <strong>NBT completo</strong>:<br><br>{SkullOwner:{Id:"6b449d2e-08b6-5e78-b724-286848d73e9d",Properties:{textures:[{Value:"e3RleHR1cmVzOntTS0lOOnt1cmw6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTg0OTZkMDY5MWUyMzMxMDgyNTc0ZDNmYTdmOGM2NjAzNTk0YzAwOGVjZjg2NTRlZDQwZGFjYzUxYTY5ZjIyMSJ9fX0="}]<strong>,GHS:[{Value:"R2Vsc2lrTUMsIFNreTEwOSBlIElCVEEzMDA1LCBHSFMgdjEuNgo="}]}},</strong>display:{Lore:["§e§l/p h §6§lCabezas§b§lPandora §f- §e§l/p h §6§lwt§b§lh","§7Actualizado el §n09/06/26"],Name:"§8[§bJup§8] §bGelsikMC"}}<br><br><strong>Dato curioso:</strong><br><br>Las comas <strong>(",")</strong> entre los <strong>"strings de datos"</strong> sirven para separar los strings y, que de esa manera puedas seguir o terminar el <strong>NBT con datos diferentes</strong>.</div>
+    </details><br>
+    <details>
+      <summary><strong>Datos importantes</strong></summary>
+      <div class=preview>Es importante saber la UUID del jugador para el correcto renderizado de la cabeza.<br>Usa la UUID que te provee NameMC o MineSkin.<br>Reemplazar placeholders por los datos reales.<br>Siempre usar protocolo HTTPS en todos los NBT's que hagas.<br>Se añadirá información y correcciones en el futuro.<br><strong>- gelsik 21/04/26</strong></div>
+    </details>
+    <hr>
+    <h4>Versión alternativa de CabezasP</h4>
+    <p>Creada por <strong>IBTA3005</strong>.</p>
+    <p><strong><a style="color: #1e90ff; text-decoration: underline;" href="https://sites.google.com/view/cabezaspandora/home" target="_blank">Versión alternativa</a></strong></p>
+    <hr />
+    <p>GitHub de <strong>CabezasP</strong>: <strong><a style="color: #1e90ff; text-decoration: underline;" href="https://github.com/gelsik-dev/CabezasP" target="_blank">gelsik-dev/CabezasP</a></strong></p>
+    <hr>
+    <p>Contacto por <strong>Discord</strong>: <strong>gelsik</strong></p>
+    <footer class="footer">
+      <strong>© 2026 Gelsik</strong>
+      <hr>
+      <strong>Placeholder E v2.1 - 11/06/26</strong>
+      <hr>
+      <p>Este proyecto está bajo licencia -
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          <strong>CC BY 4.0</strong>
+        </a>- Se permite su uso con <strong>créditos</strong>.
+      </p>
+    </footer>
+    <script>
+      const formats = {
+          Usu: "§8[§fUsu§8] §f(nick)",
+          Jup: "§8[§bJup§8] §b(nick)",
+          Nep: "§8[§9Nep§8] §9(nick)",
+          Mer: "§8[§2Mer§8] §2(nick)",
+          Sat: "§8[§5Sat§8] §5(nick)",
+          YT: "§8[§4Y§fT§8] §4(nick)",
+          Str: "§8[§dStr§8] §d(nick)",
+          Bui: "§8[§aBui§8] §a(nick)",
+          Ayu: "§8[§eAyu§8] §e(nick)",
+          Mod: "§8[§3Mod§8] §3(nick)",
+          Adm: "§8[§cAdm§8] §c(nick)",
+          Dev: "§8[§6Dev§8] §6(nick)",
+          Beta: "§8[§aBeta§8] §a(nick)"
+        },
+        colors = {
+          0: "#000000",
+          1: "#0000AA",
+          2: "#00AA00",
+          3: "#00AAAA",
+          4: "#AA0000",
+          5: "#AA00AA",
+          6: "#FFAA00",
+          7: "#AAAAAA",
+          8: "#555555",
+          9: "#5555FF",
+          a: "#55FF55",
+          b: "#55FFFF",
+          c: "#FF5555",
+          d: "#FF55FF",
+          e: "#FFFF55",
+          f: "#FFFFFF"
+        };
+
+      function generateText() {
+        const e = document.getElementById("rank").value,
+          t = document.getElementById("nick").value.trim();
+        if (!t) {
+          document.getElementById("result").textContent = "";
+          document.getElementById("preview").textContent = "—";
+          return;
+        }
+        const n = new Date,
+          o = `${String(n.getDate()).padStart(2,"0")}/${String(n.getMonth()+1).padStart(2,"0")}/${String(n.getFullYear()).slice(-2)}`;
+        const showCmd = document.getElementById("toggleCmd")?.checked ?? true;
+        const lines = [
+          formats[e].replace("(nick)", t)
+        ];
+        if (showCmd) {
+          lines.push("§e§l/p h §6§lCabezas§b§lPandora §f- §e§l/p h §6§lwt§b§lh");
+        }
+        lines.push(`§7Actualizado el §n${o}`);
+        const r = lines.join("\n");
+        document.getElementById("result").textContent = r;
+        document.getElementById("preview").innerHTML = renderPreview(r);
+      }
+
+      function renderPreview(e) {
+        let t = "",
+          n = "#000",
+          o = !1,
+          r = !1,
+          c = !1;
+        for (let d = 0; d < e.length; d++) {
+          if ("§" === e[d] && e[d + 1]) {
+            const code = e[d + 1].toLowerCase();
+            d++;
+            if (colors[code]) n = colors[code];
+            else if (code === "l") o = true;
+            else if (code === "n") r = true;
+            else if (code === "o") c = true;
+            else if (code === "r") {
+              n = "#000";
+              o = r = c = false;
+            }
+          } else if ("\n" === e[d]) {
+            t += "<br>";
+          } else {
+            t += `<span style="color:${n};font-weight:${o?"bold":"normal"};text-decoration:${r?"underline":"none"};font-style:${c?"italic":"normal"}">${e[d]}</span>`;
+          }
+        }
+        return t;
+      }
+
+      function openNameMC() {
+        const e = document.getElementById("nick").value.trim();
+        e ? window.open("https://namemc.com/profile/" + encodeURIComponent(e), "_blank") : alert("Pon un nick primero para abrir NameMC");
+      }
+
+      function openMinecraftUUID() {
+        const e = document.getElementById("nick").value.trim();
+        e ? window.open("https://minecraftuuid.com/player/" + encodeURIComponent(e), "_blank") : alert("Pon un nick o un UUID primero para abrir MinecraftUUID");
+      }
+
+      function openMineSkin() {
+        window.open("https://mineskin.org/", "_blank");
+      }
+      let baseMode = "encode";
+
+      function setMode(e) {
+        baseMode = e;
+        document.getElementById("btnEncode").style.fontWeight = e === "encode" ? "bold" : "normal";
+        document.getElementById("btnDecode").style.fontWeight = e === "decode" ? "bold" : "normal";
+        handleBase64();
+      }
+
+      function encodeUTF8ToBase64(e) {
+        const t = (new TextEncoder).encode(e);
+        let n = "";
+        t.forEach(e => n += String.fromCharCode(e));
+        return btoa(n);
+      }
+
+      function decodeBase64ToUTF8(e) {
+        const t = atob(e),
+          n = Uint8Array.from(t, e => e.charCodeAt(0));
+        return (new TextDecoder).decode(n);
+      }
+
+      function handleBase64() {
+        const e = document.getElementById("baseInput").value,
+          t = document.getElementById("baseResult");
+        if (!e.trim()) {
+          t.textContent = "—";
+          return;
+        }
+        try {
+          if (baseMode === "encode") {
+            t.textContent = encodeUTF8ToBase64(e);
+          } else {
+            const regex = /[A-Za-z0-9+/]{20,}={0,2}/g;
+            const result = e.replace(regex, chunk => {
+              try {
+                return decodeBase64ToUTF8(chunk);
+              } catch {
+                return chunk;
+              }
+            });
+            t.textContent = result;
+          }
+        } catch {
+          t.textContent = "Error en la conversión";
+        }
+      }
+
+      function extractGiveJSON() {
+        const e = document.getElementById("giveInput").value.trim(),
+          t = document.getElementById("giveResult");
+        if (!e) {
+          t.textContent = "—";
+          return;
+        }
+        const n = e.indexOf("{");
+        if (n === -1) {
+          t.textContent = "No se encontró JSON";
+          return;
+        }
+        let o = e.substring(n);
+        const r = '"Generado por CabezasP PE 2.1"';
+        if (o.includes("display:")) {
+          if (o.includes("Lore:[")) {
+            o = o.replace(/Lore:\s*\[/, e => e + r + ",");
+          } else {
+            o = o.replace(/display:\s*\{/, e => e + "Lore:[" + r + "],");
+          }
+        } else {
+          o = o.replace(/\}$/, ",display:{Lore:[" + r + "]}}");
+        }
+        t.textContent = o;
+      }
+      document.getElementById("baseInput").addEventListener("input", handleBase64);
+      setMode("encode");
+      document.getElementById("giveInput").addEventListener("input", extractGiveJSON);
+      document.getElementById("nick").addEventListener("input", generateText);
+      document.getElementById("rank").addEventListener("change", generateText);
+      document.getElementById("toggleCmd")?.addEventListener("change", generateText);
+    </script>
