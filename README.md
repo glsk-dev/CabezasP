@@ -19,7 +19,7 @@
 ## Ejemplo de lo que hace CabezasP
 
 ```txt
-§8[§bJup§8] §cGelsikMC
+§8[§bJup§8] §bglsk976
 §e§l/p h §6§lCabezas§b§lPandora
 §7Actualizado el §n10/05/26
 ```
@@ -48,7 +48,7 @@
 
 ```bash
 index.html (localmente)
-https://gelsik-dev.github.io/CabezasP/ (online)
+https://glsk-dev.github.io/CabezasP/ (online)
 ```
 
 ---
